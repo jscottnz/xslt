@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:template match="/">
+        <rss version="2.0">
+            <channel>
+                <title>BART</title>
+                <link>https://www.bart.gov/</link>
+                <description>BART Live departures</description>
+                <item>
+                    <title>
+                        <xsl:value-of select="normalize-space(/root/station/abbr/text())"/><xsl:text>:</xsl:text>
+                        <xsl:for-each select="/root/station/etd">
+                            <xsl:value-of select="normalize-space(abbreviation/text())"/>
+                            <xsl:text>:</xsl:text>
+                            <xsl:value-of select="normalize-space(estimate[1]/minutes/text())"/>
+                            <xsl:text>;</xsl:text>
+                        </xsl:for-each>
+                    </title>
+                    <description>
+                        <xsl:text>Departing </xsl:text>
+                        <xsl:value-of select="normalize-space(/root/station/name/text())"/>
+                        <xsl:text> to </xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:apply-templates select="/root/station/etd"/>
+                    </description>
+                </item>
+                
+
+            </channel>
+         </rss>
+    </xsl:template>
+
+    <xsl:template match="etd">
+        <xsl:value-of select="normalize-space(destination/text())"/><xsl:text>:</xsl:text> 
+        <xsl:apply-templates select="estimate"/>
+        <xsl:text>&#10;</xsl:text>
+    </xsl:template>
+
+
+    <xsl:template match="estimate">
+        <xsl:value-of select="normalize-space(minutes/text())"/><xsl:text>,</xsl:text>
+    </xsl:template>
+
+</xsl:stylesheet>
