@@ -14,7 +14,7 @@
     </xsl:template>
 
     <xsl:template match="etd">
-        <item>
+        <item guid="X">
             <title>
                 <xsl:value-of select="normalize-space(abbreviation)"/>
                 <xsl:text>:</xsl:text>

@@ -6,7 +6,7 @@
                 <title>BART</title>
                 <link>https://www.bart.gov/</link>
                 <description>BART Live departures</description>
-                <item>
+                <item guid="xxx">
                     <title>
                         <xsl:value-of select="normalize-space(/root/station/abbr/text())"/><xsl:text>:</xsl:text>
                         <xsl:for-each select="/root/station/etd">
