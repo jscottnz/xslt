@@ -6,7 +6,8 @@
                 <title>BART <xsl:value-of select="normalize-space(/root/station/abbr/text())"/></title>
                 <link>https://www.bart.gov/</link>
                 <description><xsl:value-of select="normalize-space(/root/station/abbr/text())"/> Departures</description>
-                
+                <language>en-us</language>
+
                 <xsl:apply-templates select="/root/station/etd"/>
 
             </channel>
@@ -14,24 +15,21 @@
     </xsl:template>
 
     <xsl:template match="etd">
-        <item guid="X">
+        <item>
             <title>
                 <xsl:value-of select="normalize-space(abbreviation)"/>
                 <xsl:text>:</xsl:text>
                 <xsl:value-of select="estimate/minutes"/>
             </title>
             <description>
-                <xsl:text>Departing to </xsl:text>
-                <xsl:value-of select="normalize-space(destination)"/>
-                <xsl:text>&#10;</xsl:text>
+                Departing to <xsl:value-of select="normalize-space(destination)"/>:
                 <xsl:apply-templates select="estimate"/>
             </description>
         </item>
     </xsl:template>
 
     <xsl:template match="estimate">
-        <xsl:value-of select="minutes"/>
-        <xsl:text>&#10;</xsl:text>
+        <xsl:value-of select="normalize-space(minutes)"/>, 
     </xsl:template>
 
 </xsl:stylesheet>
